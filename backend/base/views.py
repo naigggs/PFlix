@@ -57,3 +57,10 @@ def getDirectorProducts(request, pk):
     products = Product.objects.filter(director = pk)
     serializer = ProductSerializer(products, many=True)
     return Response(serializer.data)
+
+@api_view(['POST'])
+def addProduct(request):
+    serilizer = ProductSerializer(data=request.data)
+    if serilizer.is_valid():
+        serilizer.save()
+    return Response(serilizer.data)
